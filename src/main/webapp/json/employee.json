@@ -1,0 +1,116 @@
+{
+	"contentManagement": [
+		{
+			"title": "供应商报表",
+			"icon": "&#xe649;",
+			"href": "",
+			"spread": true,
+			"children": [
+				{
+					"title": "商品查询",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_tm.jsp",
+					"spread": false
+				},
+				{
+					"title": "库存周转天查询",
+					"icon": "&#xe649;",
+					"href": "page/supplier/turnoverDay.jsp",
+					"spread": false
+				},
+				{
+					"title": "区域销售/库存",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_sel.jsp?datestart=&datestop=&area=&mcdc=&brand=&imdsc1=&statu=1",
+					"spread": false
+				},
+				{
+					"title": "区域销售/库存(含在途库存)",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_sel_z.jsp?datestart=&datestop=&area=&mcdc=&brand=&imdsc1=&statu=1",
+					"spread": false
+				},
+				{
+					"title": "品牌销售/库存",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_sel_brand.jsp?datestart=&datestop=&brand=&imdsc1=&statu=1",
+					"spread": false
+				},
+				{
+					"title": "品牌销售/库存(含在途库存)",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_sel_brand_z.jsp?datestart=&datestop=&brand=&imdsc1=&statu=1",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "供应商对账",
+			"icon": "&#xe649;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "代销月结对账单",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_dzd.jsp",
+					"spread": false
+				},
+				{
+					"title": "代销库存报表",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_DxKunCun.jsp",
+					"spread": false
+				},
+				{
+					"title": "代销损耗明细",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_DxSunHao.jsp",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "管理页面",
+			"icon": "&#xe628;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "供应商账户管理",
+					"icon": "&#xe770;",
+					"href": "page/employee/supplierManager.jsp",
+					"spread": false
+				},
+				{
+					"title": "官方文章管理",
+					"icon": "icon-text",
+					"href": "page/employee/newsList.jsp",
+					"spread": false
+				},
+				{
+					"title": "邮件查询",
+					"icon": "icon-text",
+					"href": "page/employee/emailManager.jsp",
+					"spread": false
+				}
+			]
+		}
+	],
+	"memberCenter": [
+		{
+			"title": "用户中心",
+			"icon": "&#xe612;",
+			"href": "page/user/userList.html",
+			"spread": false
+		},
+		{
+			"title": "会员等级",
+			"icon": "icon-vip",
+			"href": "page/user/userGrade.html",
+			"spread": false
+		}
+	]
+}
+
+

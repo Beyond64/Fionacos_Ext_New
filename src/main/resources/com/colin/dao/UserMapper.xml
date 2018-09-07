@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colin.dao.UserMapper">
+
+    <resultMap id="UserMap" type="com.colin.entity.User" >
+        <id property="userid" column="USER_ID" jdbcType="INTEGER" />
+        <result property="username" column="USER_NAME" jdbcType="VARCHAR" />
+        <result property="nickname" column="USER_NICKNAME" jdbcType="VARCHAR" />
+        <result property="password" column="USER_PASSWORD" jdbcType="VARCHAR" />
+        <result property="state" column="USER_STATE" jdbcType="INTEGER" />
+        <result property="role" column="USER_ROLE" jdbcType="VARCHAR" />
+        <result property="email" column="USER_EMAIL" jdbcType="VARCHAR" />
+        <result property="businessName" column="BUSINESS_NAME" jdbcType="VARCHAR" />
+        <result property="businessPhone" column="BUSINESS_PHONE" jdbcType="VARCHAR" />
+        <result property="financeName" column="FINANCE_NAME" jdbcType="VARCHAR" />
+        <result property="financeEmail" column="FINANCE_EMAIL" jdbcType="VARCHAR" />
+        <result property="financePhone" column="FINANCE_PHONE" jdbcType="VARCHAR" />
+        <result property="backAddress" column="BACK_ADDRESS" jdbcType="VARCHAR" />
+        <result property="backPhone" column="BACK_PHONE" jdbcType="VARCHAR" />
+        <result property="bankName" column="BANK_NAME" jdbcType="VARCHAR" />
+        <result property="bankAccount" column="BANK_ACCOUNT" jdbcType="VARCHAR" />
+        <result property="businessLicense" column="BUSINESS_LICENSE" jdbcType="VARCHAR" />
+        <result property="taxCertificate" column="TAX_CERTIFICATE" jdbcType="VARCHAR" />
+        <result property="organizationCertificate" column="ORGANIZATION_CERTIFICATE" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findByName" resultMap="UserMap" parameterType="java.lang.String">
+        SELECT * FROM SYSTEM.USER_NEW_TAB WHERE USER_NAME = #{name}
+    </select>
+    <select id="findUserById" resultMap="UserMap" parameterType="java.lang.Integer">
+        SELECT * FROM SYSTEM.USER_NEW_TAB WHERE USER_ID = #{userid}
+    </select>
+
+    <select id="findAllEmail" resultMap="UserMap">
+        SELECT USER_ID,USER_EMAIL,FINANCE_EMAIL FROM SYSTEM.USER_NEW_TAB WHERE USER_STATE = 1
+    </select>
+
+    <select id="findCompanyEmail" resultMap="UserMap">
+        SELECT USER_ID,USER_NAME,USER_NICKNAME,USER_EMAIL FROM SYSTEM.USER_NEW_TAB WHERE USER_STATE = 1  AND USER_ROLE = 'supplier' AND USER_EMAIL is not null
+    </select>
+
+    <select id="findUserList" resultMap="UserMap">
+        SELECT USER_ID,USER_NAME,USER_NICKNAME,USER_STATE,USER_EMAIL,BUSINESS_NAME,BUSINESS_PHONE,FINANCE_NAME,FINANCE_EMAIL,FINANCE_PHONE,BANK_NAME,BANK_ACCOUNT,BACK_ADDRESS,BACK_PHONE,BUSINESS_LICENSE,TAX_CERTIFICATE,ORGANIZATION_CERTIFICATE FROM SYSTEM.USER_NEW_TAB
+    </select>
+
+
+    <select id="findSupplierIdsList" resultType="java.lang.String">
+        SELECT USER_NAME FROM SYSTEM.USER_NEW_TAB where USER_ROLE = 'supplier'
+    </select>
+
+
+    <update id="changPwd">
+        update SYSTEM.USER_NEW_TAB set USER_PASSWORD = #{newPassword} where USER_ID = #{userid}
+    </update>
+
+    <update id="delete">
+        update SYSTEM.USER_NEW_TAB set USER_STATE = '0',LAST_OPERATOR = #{lastOperator} where USER_ID = #{userid}
+    </update>
+
+    <update id="saveImagePath">
+        update SYSTEM.USER_NEW_TAB
+        <set>
+            <if test="type == 'BUSINESS_LICENSE'.toString()">
+                BUSINESS_LICENSE = #{relativePath},
+            </if>
+            <if test="type == 'TAX_CERTIFICATE'.toString()">
+                TAX_CERTIFICATE = #{relativePath},
+            </if>
+            <if test="type == 'ORGANIZATION_CERTIFICATE'.toString()">
+                ORGANIZATION_CERTIFICATE = #{relativePath},
+            </if>
+        </set>
+        where USER_NAME = #{userName}
+    </update>
+
+    <update id="updateByUserId">
+        update SYSTEM.USER_NEW_TAB
+        <set>
+            <if test="user.email != null">
+                USER_EMAIL = #{user.email},
+            </if>
+            <if test="user.businessName != null">
+                BUSINESS_NAME = #{user.businessName},
+            </if>
+            <if test="user.businessPhone != null">
+                BUSINESS_PHONE = #{user.businessPhone},
+            </if>
+            <if test="user.financeName != null">
+                FINANCE_NAME = #{user.financeName},
+            </if>
+            <if test="user.financeEmail != null">
+                FINANCE_EMAIL = #{user.financeEmail},
+            </if>
+            <if test="user.financePhone != null">
+                FINANCE_PHONE = #{user.financePhone},
+            </if>
+            <if test="user.bankAccount != null">
+                BANK_ACCOUNT = #{user.bankAccount},
+            </if>
+            <if test="user.bankName != null">
+                BANK_NAME = #{user.bankName},
+            </if>
+            <if test="user.backAddress != null">
+                BACK_ADDRESS = #{user.backAddress},
+            </if>
+            <if test="user.backPhone != null">
+                BACK_PHONE = #{user.backPhone},
+            </if>
+            <if test="user.businessLicense != null">
+                BUSINESS_LICENSE = #{user.businessLicense},
+            </if>
+            <if test="user.taxCertificate != null">
+                TAX_CERTIFICATE = #{user.taxCertificate},
+            </if>
+            <if test="user.organizationCertificate != null">
+                ORGANIZATION_CERTIFICATE = #{user.organizationCertificate}
+            </if>
+        </set>
+        where USER_ID = #{userid}
+    </update>
+
+    <insert id="addUser">
+        insert into SYSTEM.USER_NEW_TAB (
+        USER_ID,
+        USER_NAME,
+        USER_NICKNAME,
+        USER_EMAIL,
+        BUSINESS_NAME,
+        BUSINESS_PHONE,
+        FINANCE_NAME,
+        FINANCE_EMAIL,
+        FINANCE_PHONE,
+        BACK_ADDRESS,
+        BACK_PHONE,
+        BANK_NAME,
+        BANK_ACCOUNT,
+        LAST_OPERATOR,
+        USER_PASSWORD
+        ) values (
+        SYSTEM.S_USER_NEW_TAB.NEXTVAL,
+        #{user.username},
+        #{user.nickname},
+        #{user.email},
+        #{user.businessName},
+        #{user.businessPhone},
+        #{user.financeName},
+        #{user.financeEmail},
+        #{user.financePhone},
+        #{user.backAddress},
+        #{user.backPhone},
+        #{user.bankName},
+        #{user.bankAccount},
+        #{user.lastOperator},
+        '123456'
+        )
+    </insert>
+
+
+    <update id="updateSupplierBankInfo">
+        update SYSTEM.USER_NEW_TAB
+        <set>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT = #{bankAccount},
+            </if>
+            <if test="bankAddress != null">
+                BANK_NAME = #{bankAddress},
+            </if>
+            <if test="lastOperator != null">
+                LAST_OPERATOR = #{lastOperator},
+            </if>
+        </set>
+        where USER_NAME = #{supplierId}
+    </update>
+
+
+    <insert id="addEmailHistory">
+        insert into SYSTEM.EMAIL_TAB (
+        EMAIL_ID,
+        EMAIL_TO,
+        EMAIL_ADDRESS,
+        EMAIL_CONTENT
+        ) values (
+        SYSTEM.S_USER_NEW_TAB.NEXTVAL,
+        #{username},
+        #{userEmail},
+        #{html}
+        )
+    </insert>
+
+</mapper>

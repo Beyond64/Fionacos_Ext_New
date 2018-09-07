@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colin.dao.EmailMapper">
+
+    <resultMap id="emailMap" type="com.colin.entity.EmailVo">
+        <id property="emailId" column="EMAIL_ID" javaType="INTEGER"></id>
+        <result property="emailTo" column="EMAIL_TO" javaType="STRING"></result>
+        <result property="emailAddress" column="EMAIL_ADDRESS" javaType="STRING"></result>
+        <result property="emailContent" column="EMAIL_CONTENT" javaType="STRING"></result>
+        <result property="sendDate" column="SEND_DATA" javaType="DATE"></result>
+    </resultMap>
+
+    <select id="findEmailList" resultMap="emailMap">
+        select * from email_tab
+        <if test="date != null">
+            where
+            to_char(SEND_DATA,'YYYY-MM-DD') = #{date}
+        </if>
+    </select>
+</mapper>

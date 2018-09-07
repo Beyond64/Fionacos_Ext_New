@@ -1,0 +1,45 @@
+{
+	"contentManagement": [
+		{
+			"title": "供应商报表",
+			"icon": "&#xe649;",
+			"href": "",
+			"spread": true,
+			"children": [
+				{
+					"title": "请录入邮箱后使用该功能",
+					"icon": "&#xe649;",
+					"href": "page/user/userInfo.jsp",
+					"spread": false
+				},
+				{
+					"title": "请录入邮箱后使用该功能",
+					"icon": "&#xe649;",
+					"href": "page/user/userInfo.jsp",
+					"spread": false
+				},
+				{
+					"title": "请录入邮箱后使用该功能",
+					"icon": "&#xe649;",
+					"href": "page/user/userInfo.jsp",
+					"spread": false
+				},
+				{
+					"title": "请录入邮箱后使用该功能",
+					"icon": "&#xe649;",
+					"href": "page/user/userInfo.jsp",
+					"spread": false
+				},
+				{
+					"title": "请录入邮箱后使用该功能",
+					"icon": "&#xe649;",
+					"href": "page/user/userInfo.jsp",
+					"spread": false
+				}
+			]
+		}
+
+	]
+}
+
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colin.dao.OrderMapper">
+
+    <resultMap id="storeMap" type="com.colin.entity.StoreVo" >
+        <id property="storeId" column="STORE_ID" jdbcType="VARCHAR" />
+        <result property="storeName" column="STORE_NAME" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="findStoreList" resultMap="storeMap">
+        SELECT * FROM SYSTEM.store_tab
+    </select>
+
+
+</mapper>

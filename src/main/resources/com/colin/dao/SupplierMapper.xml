@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colin.dao.SupplierMapper">
+
+    <!--<insert id="saveTurnoverHistoey" parameterType="list">-->
+        <!--insert into TURNOVER_HISTOEY_TAB(-->
+            <!--cban8,-->
+            <!--abalky,-->
+            <!--cblitm,-->
+            <!--imdsc1,-->
+            <!--chsrp1,-->
+            <!--chsrp1_desc,-->
+            <!--imprp3,-->
+            <!--brand,-->
+            <!--TurnoverDay,-->
+            <!--BiaoZhunDiTurnoverDay,-->
+            <!--BiaoZhunGaoTurnoverDay,-->
+            <!--create_date-->
+        <!--)-->
+        <!--values-->
+        <!--<foreach collection="list" item="item" open="(" close=")" separator="," index="index">-->
+            <!--#{item.cban8},-->
+            <!--#{item.abalky},-->
+            <!--#{item.cblitm},-->
+            <!--#{item.imdsc1},-->
+            <!--#{item.chsrp1},-->
+            <!--#{item.chsrp1_desc},-->
+            <!--#{item.imprp3},-->
+            <!--#{item.brand},-->
+            <!--#{item.TurnoverDay},-->
+            <!--#{item.BiaoZhunDiTurnoverDay},-->
+            <!--#{item.BiaoZhunGaoTurnoverDay},-->
+            <!--#{date}-->
+        <!--</foreach>-->
+    <!--</insert>-->
+
+    <insert id="saveTurnoverHistoey" parameterType="java.util.List" useGeneratedKeys="false">
+        begin
+        <foreach collection="list" item="item" index="index" separator=";">
+            insert into TURNOVER_HISTOEY_TAB(
+            cban8,
+            abalky,
+            cblitm,
+            imdsc1,
+            chsrp1,
+            chsrp1_desc,
+            imprp3,
+            brand,
+            TurnoverDay,
+            BiaoZhunDiTurnoverDay,
+            BiaoZhunGaoTurnoverDay,
+            create_date
+            )
+            values
+            (
+            #{item.cban8},
+            #{item.abalky},
+            #{item.cblitm},
+            #{item.imdsc1},
+            #{item.chsrp1},
+            #{item.chsrp1_desc},
+            #{item.imprp3},
+            #{item.brand},
+            #{item.TurnoverDay},
+            #{item.BiaoZhunDiTurnoverDay},
+            #{item.BiaoZhunGaoTurnoverDay},
+            #{date}
+            )
+        </foreach>
+        ;end;
+    </insert>
+
+
+    <insert id="saveDzdHistoey" parameterType="java.util.List" useGeneratedKeys="false">
+        begin
+        <foreach collection="list" item="item" index="index" separator=";">
+            insert into DZD_TAB(
+            gysId,
+            gysName,
+            barcode,
+            barcodeDesc,
+            jieSuanShuLiang,
+            buHanShuiDanJia,
+            hanShuiDanJia,
+            xiaoShouJinE,
+            jieSuanJinE,
+            posLingShouJia,
+            year,
+            month
+            )
+            values
+            (
+            #{item.gysId},
+            #{item.gysName},
+            #{item.barcode},
+            #{item.barcodeDesc},
+            #{item.jieSuanShuLiang},
+            #{item.buHanShuiDanJia},
+            #{item.hanShuiDanJia},
+            #{item.xiaoShouJinE},
+            #{item.jieSuanJinE},
+            #{item.posLingShouJia},
+            #{year},
+            #{month}
+            )
+        </foreach>
+        ;end;
+    </insert>
+
+
+
+    <select id="findBiaoZhunTurnoverDay" resultType="com.colin.entity.TurnoverDayVo">
+        select * from TURNOVER_DAY_TAB where CATEGORY_CODE = #{chsrp1}
+    </select>
+
+    <select id="findTurnoverHistoey" resultType="com.colin.entity.ItemVo">
+        select * from TURNOVER_HISTOEY_TAB WHERE cban8 = #{gongyingshang} AND create_date = #{date}
+    </select>
+
+    <select id="findDzdHistoey" resultType="com.colin.entity.DxCheckVo">
+        select * from DZD_TAB where gysid = #{gysid} and year = #{year} and month = #{month}
+    </select>
+</mapper>

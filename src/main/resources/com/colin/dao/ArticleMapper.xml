@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colin.dao.ArticleMapper">
+
+    <resultMap id="ArticleMap" type="com.colin.entity.ArticleVo" >
+        <id property="articleId" column="ARTICLE_ID" jdbcType="INTEGER" />
+        <result property="articleName" column="ARTICLE_NAME" jdbcType="VARCHAR" />
+        <result property="articleContent" column="ARTICLE_CONTENT" jdbcType="CLOB" javaType = "java.lang.String" />
+        <result property="articleAuthor" column="ARTICLE_AUTHOR" jdbcType="VARCHAR" />
+        <result property="department" column="DEPARTMENT" jdbcType="VARCHAR" />
+        <result property="isEmail" column="IS_EMAIL" jdbcType="INTEGER" />
+        <result property="IsHide" column="IS_HIDE" jdbcType="INTEGER" />
+        <result property="emailStatus" column="EMAIL_STATUS" jdbcType="INTEGER" />
+        <result property="releaseStatus" column="RELEASE_STATUS" jdbcType="INTEGER" />
+        <result property="articleTime" column="ARTICLE_TIME" jdbcType="DATE" javaType="java.util.Date" />
+    </resultMap>
+
+
+    <select id="findArticleCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM SYSTEM.ARTICLE_TAB where DELETE_STATUS != 1
+    </select>
+
+
+    <select id="selectObjectId" resultType="java.lang.Integer">
+        select SYSTEM.S_USER_NEW_TAB.NEXTVAL from dual
+    </select>
+
+    <select id="FindArticleNameList" resultMap="ArticleMap">
+        SELECT ARTICLE_ID,ARTICLE_NAME,ARTICLE_TIME  FROM SYSTEM.ARTICLE_TAB where DELETE_STATUS != 1 and IS_HIDE != 1
+    </select>
+
+    <select id="FindArticleById" resultMap="ArticleMap">
+        SELECT * FROM SYSTEM.ARTICLE_TAB where ARTICLE_ID =  #{articleId}
+    </select>
+
+    <select id="findArticlePage" resultMap="ArticleMap">
+        select *
+        from (select A.*, rownum rownum_
+        from (SELECT * FROM SYSTEM.ARTICLE_TAB where DELETE_STATUS != 1) A
+        where rownum &lt;= #{endRows})
+        where rownum_ &gt;= #{starRows}
+    </select>
+
+    <update id="deleteArticle">
+        update SYSTEM.ARTICLE_TAB set DELETE_STATUS = 1 where ARTICLE_ID in
+        <foreach collection="articleIds" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateArticleEmailStatus">
+        update SYSTEM.ARTICLE_TAB set EMAIL_STATUS = #{status},IS_EMAIL = '1' where ARTICLE_ID = #{articleIds}
+    </update>
+
+    <update id="updateArticle">
+        update SYSTEM.ARTICLE_TAB
+        <set>
+            <if test="articleVo.articleName != null">
+                ARTICLE_NAME = #{articleVo.articleName},
+            </if>
+            <if test="articleVo.articleContent != null">
+                ARTICLE_CONTENT = #{articleVo.articleContent},
+            </if>
+            <if test="articleVo.articleAuthor != null">
+                ARTICLE_AUTHOR = #{articleVo.articleAuthor},
+            </if>
+            <if test="articleVo.department != null">
+                DEPARTMENT = #{articleVo.department},
+            </if>
+            <if test="articleVo.isEmail != null">
+                IS_EMAIL = #{articleVo.isEmail},
+            </if>
+            <if test="articleVo.emailStatus != null">
+                EMAIL_STATUS = #{articleVo.emailStatus},
+            </if>
+            <if test="articleVo.IsHide != null">
+                IS_HIDE = #{articleVo.IsHide},
+            </if>
+            <if test="articleVo.releaseStatus != null">
+                RELEASE_STATUS = #{articleVo.releaseStatus},
+            </if>
+        </set>
+        where ARTICLE_ID = #{articleVo.articleId}
+    </update>
+
+
+    <insert id="addArticle">
+        insert into SYSTEM.ARTICLE_TAB (
+        ARTICLE_ID,
+        ARTICLE_NAME,
+        ARTICLE_CONTENT,
+        ARTICLE_AUTHOR,
+        DEPARTMENT,
+        IS_EMAIL,
+        IS_HIDE,
+        EMAIL_STATUS,
+        RELEASE_STATUS
+        ) values (
+        #{articleVo.articleId},
+        #{articleVo.articleName},
+        #{articleVo.articleContent},
+        #{articleVo.articleAuthor},
+        #{articleVo.department},
+        #{articleVo.isEmail},
+        #{articleVo.IsHide},
+        #{articleVo.isEmail},
+        #{articleVo.releaseStatus}
+        )
+    </insert>
+
+</mapper>
