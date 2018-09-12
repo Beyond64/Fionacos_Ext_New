@@ -1,20 +1,27 @@
 package com.colin.controller;
 
+import cn.afterturn.easypoi.cache.manager.IFileLoader;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import com.colin.entity.*;
 import com.colin.service.SupplierService;
 import com.colin.tool.DateUtils;
+import com.colin.tool.PathUtil;
+import freemarker.template.Configuration;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -315,6 +322,73 @@ public class supplierController {
         }
         return null;
     }
+
+
+
+    @RequestMapping("/exportServiceList")
+    @ResponseBody
+    public ResultVo exportServiceList(HttpServletRequest request, String gysid, String jidu){
+        try {
+        Configuration freemarkerCfg = new Configuration();
+        freemarkerCfg.setDirectoryForTemplateLoading(new File(PathUtil.getCurrentPath()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping("/importServiceList")
+    @ResponseBody
+    public Map<String, Object> importServiceList(MultipartFile file, HttpServletRequest request){
+        String code = "0";
+        Map<String,Object> map = new HashMap<String,Object>();
+        if (file == null){
+            return null;
+        }
+        ImportParams params = new ImportParams();
+        params.setTitleRows(0);
+        params.setHeadRows(1);
+        List<ServiceListVo> list = null;
+        try {
+            list = ExcelImportUtil.importExcel(file.getInputStream(), ServiceListVo.class, params);
+            if(list != null && list.size() > 0){
+                code = supplierService.saveServiceList(list);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        map.put("code",code);
+        return map;
+    }
+
+
+    @RequestMapping("/findServiceList")
+    @ResponseBody
+    public Map<String, Object> findServiceList(Integer gysId,String danjuDate){
+        Map<String,Object> map = new HashMap<String,Object>();
+        List<ServiceListVo> list = supplierService.findServiceList(gysId,danjuDate);
+        Double heji = 0.00;
+        String payType = "";
+        if (list != null && list.size() > 0 ){
+            for (int i = 0; i < list.size(); i++) {
+                ServiceListVo serviceListVo = list.get(i);
+                if (serviceListVo.getRemarks() == null){
+                    serviceListVo.setRemarks("");
+                }
+                heji += serviceListVo.getAmount();
+                payType = serviceListVo.getPayType();
+            }
+        }
+        map.put("heji",heji);
+        map.put("list",list);
+        map.put("payType",payType);
+        return map;
+
+    }
+
+
+
 
 }
 

@@ -110,6 +110,25 @@ public class SupplierServiceImpl implements SupplierService {
         List<DxShunHaoVo> list = JSONObject.parseArray(result, DxShunHaoVo.class);//把字符串转换成集合
         return list;
     }
+
+    @Override
+    public String saveServiceList(List<ServiceListVo> list) {
+        if(list != null && list.size() > 0){
+            ServiceListVo serviceListVo = list.get(0);
+            List<ServiceListVo> result =  supplierMapper.findServiceList(serviceListVo.getGysId(),serviceListVo.getDanjuDate());
+            if (result != null && result.size() > 0){
+                return "1";
+            }
+        }
+        supplierMapper.saveServiceList(list);
+        return "0";
+    }
+
+    @Override
+    public List<ServiceListVo> findServiceList(Integer gysId, String danjuDate) {
+        List<ServiceListVo> result =  supplierMapper.findServiceList(gysId,danjuDate);
+        return result;
+    }
 }
 
 

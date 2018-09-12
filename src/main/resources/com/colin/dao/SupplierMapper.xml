@@ -3,6 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.colin.dao.SupplierMapper">
 
+
+    <resultMap id="ServiceListMap" type="com.colin.entity.ServiceListVo" >
+        <id property="gysId" column="gys_id" jdbcType="INTEGER" />
+        <result property="danjuDate" column="danju_Date" jdbcType="VARCHAR" />
+        <result property="description" column="description" jdbcType="VARCHAR" />
+        <result property="amount" column="amount" jdbcType="VARCHAR" />
+        <result property="remarks" column="remarks" jdbcType="INTEGER" />
+        <result property="payType" column="pay_type" jdbcType="VARCHAR" />
+    </resultMap>
+
     <!--<insert id="saveTurnoverHistoey" parameterType="list">-->
         <!--insert into TURNOVER_HISTOEY_TAB(-->
             <!--cban8,-->
@@ -108,6 +118,29 @@
         ;end;
     </insert>
 
+    <insert id="saveServiceList">
+        begin
+        <foreach collection="list" item="item" index="index" separator=";">
+            insert into Service_list_TAB(
+            gys_id,
+            danju_Date,
+            Description,
+            Amount,
+            Remarks,
+            pay_type
+            )
+            values
+            (
+            #{item.gysId},
+            #{item.danjuDate,jdbcType=VARCHAR},
+            #{item.description,jdbcType=VARCHAR},
+            #{item.amount},
+            #{item.remarks,jdbcType=VARCHAR},
+            #{item.payType,jdbcType=VARCHAR}
+            )
+        </foreach>
+        ;end;
+    </insert>
 
 
     <select id="findBiaoZhunTurnoverDay" resultType="com.colin.entity.TurnoverDayVo">
@@ -120,5 +153,10 @@
 
     <select id="findDzdHistoey" resultType="com.colin.entity.DxCheckVo">
         select * from DZD_TAB where gysid = #{gysid} and year = #{year} and month = #{month}
+    </select>
+
+
+    <select id="findServiceList" resultMap="ServiceListMap">
+        select * from Service_list_TAB where gys_id = #{gysId} and danju_date = #{danjuDate}
     </select>
 </mapper>

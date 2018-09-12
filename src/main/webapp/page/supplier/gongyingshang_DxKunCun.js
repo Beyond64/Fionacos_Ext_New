@@ -20,9 +20,9 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
         totalRow: true,
         cols : [[
             {field: 'dxan8', title: '供应商编码', align:"center" ,width:'10%', totalRowText: '合计'},
-            {field: 'dxalph', title: '供应商名称',width:'20%'},
-            {field: 'dxlitm', title: '国际条码', width:'20%',align:'center',},
-            {field: 'dxdsc1', title: '条码说明', width:'10%', align:'center'},
+            {field: 'dxalph', title: '供应商名称',width:'15%'},
+            {field: 'dxlitm', title: '国际条码', width:'15%',align:'center',},
+            {field: 'dxdsc1', title: '条码说明', width:'20%', align:'center'},
             {field: 'dxnq00', title: '承上数量',width:'10%',align:'center',totalRow: true},
             {field: 'dxnq01', title: '寄售存入数量',width:'10%',align:'center',totalRow: true},
             {field: 'dxnq02', title: '寄售购入数量',width:'10%',align:'center',totalRow: true},

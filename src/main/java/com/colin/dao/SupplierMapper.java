@@ -2,6 +2,7 @@ package com.colin.dao;
 
 import com.colin.entity.DxCheckVo;
 import com.colin.entity.ItemVo;
+import com.colin.entity.ServiceListVo;
 import com.colin.entity.TurnoverDayVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,4 +19,8 @@ public interface SupplierMapper {
     void saveDzdHistoey(@Param("list") List<DxCheckVo> list, @Param("year") String year, @Param("month") String month);
 
     List<DxCheckVo> findDzdHistoey(@Param("gysid") String gysid, @Param("year") String year, @Param("month") String month);
+
+    void saveServiceList(@Param("list") List<ServiceListVo> list);
+
+    List<ServiceListVo> findServiceList(@Param("gysId") Integer gysId, @Param("danjuDate") String danjuDate);
 }

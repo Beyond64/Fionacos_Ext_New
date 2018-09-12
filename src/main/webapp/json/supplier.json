@@ -67,6 +67,12 @@
 					"icon": "&#xe649;",
 					"href": "page/supplier/gongyingshang_DxSunHao.jsp",
 					"spread": false
+				},
+				{
+					"title": "服务费清单",
+					"icon": "&#xe649;",
+					"href": "page/supplier/gongyingshang_ServiceList.jsp",
+					"spread": false
 				}
 			]
 		}

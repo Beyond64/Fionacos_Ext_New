@@ -1,9 +1,6 @@
 package com.colin.service;
 
-import com.colin.entity.DxCheckVo;
-import com.colin.entity.DxShunHaoVo;
-import com.colin.entity.DxStock;
-import com.colin.entity.ItemVo;
+import com.colin.entity.*;
 
 import java.util.List;
 
@@ -18,4 +15,8 @@ public interface SupplierService {
     List<DxStock> getDxKunCunList(String gysid, String date);
 
     List<DxShunHaoVo> getDxSunHaoList(String gysid, String startdate, String endDate);
+
+    String saveServiceList(List<ServiceListVo> list);
+
+    List<ServiceListVo> findServiceList(Integer gysId, String danjuDate);
 }
