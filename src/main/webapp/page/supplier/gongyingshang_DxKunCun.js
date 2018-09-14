@@ -94,7 +94,7 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
         return currentdate;
     }
 
-    $(".daochu_btn").click(function(){
+        $(".daochu_btn").click(function(){
         index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
         $(function () {
             $.ajax({

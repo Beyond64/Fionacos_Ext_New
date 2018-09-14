@@ -10,7 +10,14 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
     var localhostPaht=$("#myPathValue").val();
     var username = JSON.parse(localStorage.getItem("user")).username;
     var nickname = JSON.parse(localStorage.getItem("user")).nickname;
-    var nickEmail = JSON.parse(localStorage.getItem("user")).email;
+    var userEmail = JSON.parse(localStorage.getItem("user")).email;
+    var role = JSON.parse(localStorage.getItem("user")).role;
+
+    if(role == "admin" || role == "employee"){
+        $("#downloadMuBan").show();
+        $("#test8").show();
+        $("#test9").show();
+    }
 
     // var index = layer.msg('加载中，请稍候',{icon: 16,time:false,shade:0.8});
     upload.render({
@@ -37,7 +44,9 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
 
     //查询按钮
     $(".findOnTime").click(function(){
+        index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
         if (Mydate >= getNowFormatDate()){
+            layer.close(index);
             layer.open({
                 type: 1,
                 title: "温馨提示",
@@ -53,11 +62,6 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
                 }
             });
         }else{
-            $("#newsList").show();
-            $(".ajaxTr").remove();
-            // $("#zhijiefukuan").removeAttr("checked");
-            // $("#dikohuokuan").removeAttr("checked");
-            $("#heji").text("");
 
             //执行重载
             $.ajax({
@@ -69,14 +73,25 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
                 },
                 dataType: "json",
                 success: function(data){
+                    if(!data.list){
+                        layer.close(index);
+                        showNotice()
+                        return;
+                    }else{
+                        $("#newsList").show();
+                        $(".ajaxTr").remove();
+                        $("#zhijiefukuan").removeProp("checked");
+                        $("#dikohuokuan").removeProp("checked");
+                        $("#heji").text("");
+                    }
                     var heji = data.heji;
                     var list = data.list;
                     var payType = data.payType;
                     if (payType){
                         if (payType == "直接付款") {
-                            $("#zhijiefukuan").attr("checked","true");
+                            $("#zhijiefukuan").prop("checked","true");
                         }else{
-                            $("#dikohuokuan").attr("checked","true");
+                            $("#dikohuokuan").prop("checked","true");
                         }
                     }
                     if(heji){
@@ -84,7 +99,7 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
                     }
                     $("#gysId").text(username);
                     $("#gysName").text(nickname);
-                    $("#gysEmail").text(nickEmail);
+                    $("#gysEmail").text(userEmail);
                     if(list){
                         $.each(list,function(n,serviceListVo) {
                             var $tr = $("<tr class='ajaxTr'/>");
@@ -99,10 +114,67 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
                             $("#afterTr").after($tr);
                         });
                     }
+                    layer.close(index);
                 }
             });
         }
     });
+
+    $("#downloadMuBan").click(function(){
+        //var index = top.layer.msg('文件下载中,请勿重复点击',{icon: 16,time:false,shade:0.8});
+        var storeId = $("#storeName  option:selected").val()
+        var   link = document.createElement('a');
+        link.href = localhostPaht + '/json/muban.xlsx';
+        link.setAttribute("download", "");
+        link.click();
+    });
+
+
+    $("#downLoadPdf").click(function(){
+        index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
+        $(function () {
+            $.ajax({
+                type : "GET",
+                url :  localhostPaht + '/supplier/exportServiceList?gysid='+ username +'&danjuDate='+ Mydate+'&gysName=' + nickname + '&gysEmail='+ userEmail,
+                success : function(data,status) {
+                    if(data && data.state == "success"){
+                        var filePath = data.msg;
+                        var   link = document.createElement('a');
+                        link.href = localhostPaht + filePath;
+                        link.setAttribute("download", "");
+                        link.click();
+                        layer.close(index);
+                    }else{
+                        layer.close(index);
+                        showNotice()
+                    }
+                },
+            });
+        })
+    })
+
+    function showNotice() {
+        layer.open({
+            type: 1,
+            title: "提示",
+            area: '300px',
+            shade: 0.8,
+            id: 'LAY_layuipro',
+            btn: ['关闭'],
+            moveType: 1,
+            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;">无数据,查询月份数据未生成<p class="layui-red"></p> </div>',
+            success: function(layero){
+                var btn = layero.find('.layui-layer-btn');
+                btn.css('text-align', 'center');
+                btn.on("click",function(){
+                    layer.close();
+                });
+            },
+            cancel: function(index, layero){
+                layer.close();
+            }
+        });
+    }
 
 
     //日期

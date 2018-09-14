@@ -83,7 +83,7 @@ public class ReceiptMail {
                 String html = getHTML2(itemListByGys);
 //                System.out.println(html);
                 String title = "【妍丽】库存周转天";
-                String copyTo = "sweety_ty_li@fionacos.com;harlin_in_huang@fionacos.com;yuki_ki_yang@fionacos.com;sophie_ie_zhang@fionacos.com;rinco_co_he@fionacos.com;dolly_ly_dong@fionacos.com;marah_ah_lei@fionacos.com;joanna_na_lai@fionacos.com; ivan_an_huang@fionacos.com;elly_ly_weng@fionacos.com;sarah_ah_huang@fionacos.com;sunshine_ne_zhao@fionacos.com;olivia_ia_lin@fionacos.com;vivi_vi_wu@fionacos.com";
+                String copyTo = "sweety_li@fionacos.com;harlin_huang@fionacos.com;yuki_yang@fionacos.com;sophie_zhang@fionacos.com;rinco_he@fionacos.com;dolly_dong@fionacos.com;marah_lei@fionacos.com;joanna_lai@fionacos.com; ivan_huang@fionacos.com;elly_weng@fionacos.com;sarah_huang@fionacos.com;sunshine_zhao@fionacos.com;olivia_lin@fionacos.com;vivi_wu@fionacos.com";
                 MailUtils.SendEmailCopyTo("purchase",userEmail,copyTo,title,html);
                 //去记录邮件发送历史
                 userService.addEmailHistory(username,userEmail,html);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8"/>
 		<title></title>
 		<style>
 			body{
@@ -21,15 +21,15 @@
 			</tr>
 			<tr>
 				<td>客户商编码:</td>
-				<td colspan="3">${name}</td>
+				<td colspan="3">${gysId}</td>
 			</tr>
 			<tr>
 				<td>客户名称:</td>
-				<td colspan="3">${name}</td>
+				<td colspan="3">${gysName}</td>
 			</tr>
 			<tr>
 				<td>联系邮箱:</td>
-				<td colspan="3">${name}</td>
+				<td colspan="3">${gysEmail}</td>
 			</tr>
 			<tr style="background-color: aquamarine;">
 				<td>单据日期</td>
@@ -37,12 +37,12 @@
 				<td align="center">金额</td>
 				<td align="center">备注</td>
 			</tr>
-			<#list dateList as fwfVo>
-				<tr style="background-color: aquamarine;">
-					<td>${fwfVo.danJuRiQi}</td>
-					<td align="center">${fwfVo.danJuRiQi}</td>
-					<td align="center">${fwfVo.danJuRiQi}</td>
-					<td align="center">${fwfVo.danJuRiQi}</td>
+			<#list list as fwfVo>
+				<tr>
+					<td>${fwfVo.danjuDate}</td>
+					<td align="center">${fwfVo.description}</td>
+					<td align="center">${fwfVo.amount}</td>
+					<td align="center">${fwfVo.remarks}</td>
 				</tr>
 			</#list>
 
@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<td>备注:</td>
-				<td colspan="3">付款方式:   <input type="checkbox" /> 直接付款    <input type="checkbox" /> 抵扣贷款</td>
+				<td colspan="3">付款方式:   ${zhijiefukuan}直接付款 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ${dikohuokuan}抵扣贷款</td>
 			</tr>
 			<tr>
 				<td>备注:</td>

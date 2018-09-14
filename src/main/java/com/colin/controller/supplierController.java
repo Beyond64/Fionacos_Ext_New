@@ -1,6 +1,5 @@
 package com.colin.controller;
 
-import cn.afterturn.easypoi.cache.manager.IFileLoader;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
@@ -9,7 +8,9 @@ import com.colin.entity.*;
 import com.colin.service.SupplierService;
 import com.colin.tool.DateUtils;
 import com.colin.tool.PathUtil;
+import com.itextpdf.text.pdf.BaseFont;
 import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.xhtmlrenderer.pdf.ITextFontResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -327,12 +327,53 @@ public class supplierController {
 
     @RequestMapping("/exportServiceList")
     @ResponseBody
-    public ResultVo exportServiceList(HttpServletRequest request, String gysid, String jidu){
+    public ResultVo exportServiceList(HttpServletRequest request, Integer gysid, String danjuDate,String gysName,String gysEmail){
+        ResultVo resultVo;
         try {
-        Configuration freemarkerCfg = new Configuration();
-        freemarkerCfg.setDirectoryForTemplateLoading(new File(PathUtil.getCurrentPath()));
-
-        } catch (IOException e) {
+            Configuration freemarkerCfg = new Configuration();
+            Map<String, Object> data = this.findServiceList(gysid, danjuDate);
+            if(data == null || data.size() == 0 ){
+                resultVo = new ResultVo("error","无数据,查询月份数据未生成");
+                return resultVo;
+            }
+            String payType = (String) data.get("payType");
+            if(payType != null && "直接付款".equals(payType)){
+                data.put("zhijiefukuan","√");
+                data.put("dikohuokuan","");
+            }
+            if(payType != null && "抵扣货款".equals(payType)){
+                data.put("zhijiefukuan","");
+                data.put("dikohuokuan","√");
+            }
+            data.put("gysName",gysName);
+            data.put("gysId",gysid + "");
+            data.put("gysEmail",gysEmail);
+            freemarkerCfg.setDirectoryForTemplateLoading(new File(PathUtil.getCurrentPath()));
+            freemarkerCfg.setDefaultEncoding("UTF-8");
+            Template template = freemarkerCfg.getTemplate("pdf//fwfTemple.html");
+            Writer out = new StringWriter();
+            template.process(data, out);
+            out.flush();
+            String content = out.toString();
+            ITextRenderer render = new ITextRenderer();
+            ITextFontResolver fontResolver = render.getFontResolver();
+            fontResolver.addFont("pdf//simhei.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            // 解析html生成pdf
+            render.setDocumentFromString(content);
+            //解决图片相对路径的问题
+            render.layout();
+            String filePath = request.getSession().getServletContext().getRealPath("/" );
+            filePath += "download" + File.separator + gysid + File.separator + danjuDate+ "服务费清单" + ".pdf" ;
+            String relativePath = "/download" + File.separator + gysid + File.separator + danjuDate+ "服务费清单" + ".pdf";
+            File file = new File(filePath);
+            if(!file.getParentFile().exists()){ //如果文件的目录不存在
+                file.getParentFile().mkdirs(); //创建目录
+            }
+            OutputStream output = new FileOutputStream(file);
+            render.createPDF(output);
+            resultVo = new ResultVo("success",relativePath);
+            return resultVo;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -379,10 +420,10 @@ public class supplierController {
                 heji += serviceListVo.getAmount();
                 payType = serviceListVo.getPayType();
             }
+            map.put("heji",heji);
+            map.put("list",list);
+            map.put("payType",payType);
         }
-        map.put("heji",heji);
-        map.put("list",list);
-        map.put("payType",payType);
         return map;
 
     }

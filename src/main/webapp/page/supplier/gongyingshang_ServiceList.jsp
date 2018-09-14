@@ -36,8 +36,9 @@
     <blockquote class="layui-elem-quote quoteBox">
         <form class="layui-form">
             <div class="layui-upload layui-inline">
-                <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
-                <button type="button" class="layui-btn" id="test9">开始上传</button>
+                <button type="button" class="layui-btn layui-btn-warm" id="downloadMuBan" style="display: none">下载模板</button>
+                <button type="button" class="layui-btn layui-btn-normal" id="test8" style="display: none" >上传数据</button>
+                <button type="button" class="layui-btn" id="test9" style="display: none">开始上传</button>
             </div>
             <div class="layui-inline" style="margin-right: 8px">
                 <label class="layui-form-label">查询日期</label>
@@ -45,6 +46,8 @@
                     <input type="text" id="test1" style="margin-top: 2px;height: 30px">
                 </div>
                 <div class="layui-btn findOnTime" data-type="reload" id="findOnTime"  lay-filter="rechar_btn">查询</div>
+                <button type="button" class="layui-btn layui-btn-danger" id="downLoadPdf">导出</button>
+
             </div>
         </form>
     </blockquote>
