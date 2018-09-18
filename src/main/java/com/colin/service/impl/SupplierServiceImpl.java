@@ -129,6 +129,43 @@ public class SupplierServiceImpl implements SupplierService {
         List<ServiceListVo> result =  supplierMapper.findServiceList(gysId,danjuDate);
         return result;
     }
+
+    @Override
+    public List<FinanceVo> findFinaceInfoList() {
+        return supplierMapper.findFinaceInfoList();
+    }
+
+    @Override
+    public String saveFinaceInfo(FinanceVo financeVo) {
+        if (financeVo == null){
+            return "false";
+        }
+        if(financeVo.getObjectId() == null){
+            supplierMapper.addFinaceInfo(financeVo);
+        }else {
+            supplierMapper.updateFinaceInfo(financeVo);
+        }
+        return "true";
+    }
+
+    @Override
+    public void saveFinaceFileInfo(String fileName, String relativePath) {
+        supplierMapper.saveFinaceFileInfo(fileName,relativePath);
+    }
+
+    @Override
+    public List<FinaceFileInfoVo> findFinaceFileList() {
+        return supplierMapper.findFinaceFileList();
+    }
+
+    @Override
+    public void deleteFinaceInfo(Integer objectId, Integer type) {
+        if(type == 1){
+            supplierMapper.deleteFinaceInfo(objectId);
+        }else{
+            supplierMapper.deleteFinaceFile(objectId);
+        }
+    }
 }
 
 

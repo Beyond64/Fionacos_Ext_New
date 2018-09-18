@@ -1,9 +1,6 @@
 package com.colin.dao;
 
-import com.colin.entity.DxCheckVo;
-import com.colin.entity.ItemVo;
-import com.colin.entity.ServiceListVo;
-import com.colin.entity.TurnoverDayVo;
+import com.colin.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,4 +20,18 @@ public interface SupplierMapper {
     void saveServiceList(@Param("list") List<ServiceListVo> list);
 
     List<ServiceListVo> findServiceList(@Param("gysId") Integer gysId, @Param("danjuDate") String danjuDate);
+
+    List<FinanceVo> findFinaceInfoList();
+
+    void addFinaceInfo(@Param("financeVo") FinanceVo financeVo);
+
+    void updateFinaceInfo(@Param("financeVo") FinanceVo financeVo);
+
+    void saveFinaceFileInfo(@Param("fileName") String fileName, @Param("relativePath") String relativePath);
+
+    List<FinaceFileInfoVo> findFinaceFileList();
+
+    void deleteFinaceInfo(@Param("objectId") Integer objectId);
+
+    void deleteFinaceFile(@Param("objectId") Integer objectId);
 }

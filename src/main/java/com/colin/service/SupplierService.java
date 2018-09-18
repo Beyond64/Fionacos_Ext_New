@@ -19,4 +19,14 @@ public interface SupplierService {
     String saveServiceList(List<ServiceListVo> list);
 
     List<ServiceListVo> findServiceList(Integer gysId, String danjuDate);
+
+    List<FinanceVo> findFinaceInfoList();
+
+    String saveFinaceInfo(FinanceVo financeVo);
+
+    void saveFinaceFileInfo(String fileName, String relativePath);
+
+    List<FinaceFileInfoVo> findFinaceFileList();
+
+    void deleteFinaceInfo(Integer objectId, Integer type);
 }

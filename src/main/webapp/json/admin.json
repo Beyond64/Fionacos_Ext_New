@@ -4,7 +4,7 @@
 			"title": "供应商报表",
 			"icon": "&#xe649;",
 			"href": "",
-			"spread": true,
+			"spread": false,
 			"children": [
 				{
 					"title": "商品查询",
@@ -67,6 +67,12 @@
 					"icon": "&#xe649;",
 					"href": "page/supplier/gongyingshang_ServiceList.jsp",
 					"spread": false
+				},
+				{
+					"title": "财务资料与联系方式",
+					"icon": "&#xe649;",
+					"href": "page/supplier/financeInfo.jsp",
+					"spread": false
 				}
 			]
 		},
@@ -95,9 +101,15 @@
 					"spread": false
 				},
 				{
-					"title": "邮件查询",
+					"title": "供应链服务费",
 					"icon": "icon-text",
 					"href": "page/employee/emailManager.jsp",
+					"spread": false
+				},
+				{
+					"title": "财务开票资料与联系方式",
+					"icon": "&#xe649;",
+					"href": "page/employee/financeInfo.jsp",
 					"spread": false
 				}
 			]

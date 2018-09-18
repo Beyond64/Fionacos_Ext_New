@@ -8,13 +8,16 @@ import com.colin.entity.*;
 import com.colin.service.SupplierService;
 import com.colin.tool.DateUtils;
 import com.colin.tool.PathUtil;
+import com.colin.tool.UploadUtils;
 import com.itextpdf.text.pdf.BaseFont;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -426,6 +429,70 @@ public class supplierController {
         }
         return map;
 
+    }
+
+
+
+    @RequestMapping(value = "/findFinaceInfoList")
+    @ResponseBody
+    public Map<String, Object> findFinaceInfoList(){
+        Map<String,Object> map = new HashMap<String,Object>();
+        List<FinanceVo> list = supplierService.findFinaceInfoList();
+        if (list != null && list.size() != 0) {
+            map.put("data",list);
+            map.put("msg","");
+            map.put("count",list.size());
+        }
+        map.put("code", 0);
+        return map;
+    }
+
+
+    @RequestMapping(value = "/addFinaceInfo")
+    @ResponseBody
+    public String saveFinaceInfo(@Param("user") FinanceVo financeVo){
+        String result = supplierService.saveFinaceInfo(financeVo);
+        return result;
+    }
+
+
+
+    @RequestMapping("/importFinaceFile")
+    @ResponseBody
+    public String importFinaceFile(MultipartFile file, HttpServletRequest request){
+        try {
+            String name = file.getOriginalFilename();
+            String path = request.getSession().getServletContext().getRealPath("\\upload\\" + "finacefile" + "\\");
+            String fileName = null;
+            fileName = UploadUtils.uploadFile(file,path);
+            String relativePath = "/upload/" + "finacefile" + "/"  + fileName;
+            supplierService.saveFinaceFileInfo(name,relativePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @RequestMapping(value = "/findFinaceFileList")
+    @ResponseBody
+    public Map<String, Object> findFinaceFileList(){
+        Map<String,Object> map = new HashMap<String,Object>();
+        List<FinaceFileInfoVo> list = supplierService.findFinaceFileList();
+        if (list != null && list.size() != 0) {
+            map.put("data",list);
+            map.put("msg","");
+            map.put("count",list.size());
+        }
+        map.put("code", 0);
+        return map;
+    }
+
+    @RequestMapping(value = "/deleteFinaceInfo")
+    @ResponseBody
+    public String deleteFinaceInfo(Integer objectId,Integer type){
+        supplierService.deleteFinaceInfo(objectId,type);
+        return "true";
     }
 
 

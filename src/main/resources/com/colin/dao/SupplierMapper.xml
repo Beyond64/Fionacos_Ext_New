@@ -13,6 +13,16 @@
         <result property="payType" column="pay_type" jdbcType="VARCHAR" />
     </resultMap>
 
+
+    <resultMap id="FinaceInfoMap" type="com.colin.entity.FinanceVo" >
+        <id property="objectId" column="OBJECT_ID" jdbcType="INTEGER" />
+        <result property="name" column="NAME" jdbcType="VARCHAR" />
+        <result property="position" column="POSITION" jdbcType="VARCHAR" />
+        <result property="phone" column="PHONE_INFO" jdbcType="VARCHAR" />
+        <result property="email" column="EMAIL_INFO" jdbcType="VARCHAR" />
+        <result property="address" column="ADDRESS_INFO" jdbcType="VARCHAR" />
+    </resultMap>
+
     <!--<insert id="saveTurnoverHistoey" parameterType="list">-->
         <!--insert into TURNOVER_HISTOEY_TAB(-->
             <!--cban8,-->
@@ -142,6 +152,66 @@
         ;end;
     </insert>
 
+    <insert id="addFinaceInfo">
+        insert into FINANCE_INFO_TAB (
+        OBJECT_ID,
+        name,
+        position,
+        phone_info,
+        email_info,
+        address_info
+        ) values (
+        SYSTEM.S_USER_NEW_TAB.NEXTVAL,
+        #{financeVo.name},
+        #{financeVo.position},
+        #{financeVo.phone},
+        #{financeVo.email},
+        #{financeVo.address}
+        )
+    </insert>
+
+    <insert id="saveFinaceFileInfo">
+        insert into Finance_file_tab (
+        OBJECT_ID,
+        filename,
+        filePath
+        ) values (
+        SYSTEM.S_USER_NEW_TAB.NEXTVAL,
+        #{fileName},
+        #{relativePath}
+        )
+    </insert>
+
+    <update id="updateFinaceInfo">
+        update FINANCE_INFO_TAB
+        <set>
+            <if test="financeVo.name != null">
+                name = #{financeVo.name},
+            </if>
+            <if test="financeVo.position != null">
+                position = #{financeVo.position},
+            </if>
+            <if test="financeVo.phone != null">
+                phone_info = #{financeVo.phone},
+            </if>
+            <if test="financeVo.email != null">
+                email_info = #{financeVo.email},
+            </if>
+            <if test="financeVo.address != null">
+                address_info = #{financeVo.address},
+            </if>
+        </set>
+        where OBJECT_ID = #{financeVo.objectId}
+</update>
+
+    <delete id="deleteFinaceInfo">
+        delete from FINANCE_INFO_TAB where OBJECT_ID = #{objectId}
+    </delete>
+
+    <delete id="deleteFinaceFile">
+        delete from Finance_file_tab where OBJECT_ID = #{objectId}
+    </delete>
+
 
     <select id="findBiaoZhunTurnoverDay" resultType="com.colin.entity.TurnoverDayVo">
         select * from TURNOVER_DAY_TAB where CATEGORY_CODE = #{chsrp1}
@@ -158,5 +228,13 @@
 
     <select id="findServiceList" resultMap="ServiceListMap">
         select * from Service_list_TAB where gys_id = #{gysId} and danju_date = #{danjuDate}
+    </select>
+
+    <select id="findFinaceInfoList" resultMap="FinaceInfoMap">
+        select * from Finance_info_tab
+    </select>
+
+    <select id="findFinaceFileList" resultType="com.colin.entity.FinaceFileInfoVo">
+        select * from Finance_file_tab
     </select>
 </mapper>
