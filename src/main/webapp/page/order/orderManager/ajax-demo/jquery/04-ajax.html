@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-ajax</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <input type="button" id="btn" value="ajax">
+
+    <script type="text/javascript">
+        $('#btn').click(function(){
+
+            var user ={"name":"harriet","pwd":"ljh"};
+
+            $.ajax({
+                url : '04.php',
+                type : 'post',
+                async : true,
+                data : user,
+                // dataType : 'json',
+                success : function(data,textStatus){
+                    console.log(data);
+                    console.log(textStatus);
+                },
+                error : function(XMLHttpRequest,textStatus,errorThrown){},
+
+            });
+
+        });
+    </script>
+</body>
+</html>

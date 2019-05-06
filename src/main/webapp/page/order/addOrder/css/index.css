@@ -1,0 +1,366 @@
+input {
+	background-color: transparent;
+	border: none;
+}
+.product {
+	width: 100%;
+	min-width: 1160px !important;
+	height: 100%;
+	font-size: 13px;
+	color: #636363;
+	position: relative;
+}
+.product>div:nth-of-type(1){
+	padding: 33px 0 30px 26px;
+	background-color: #fff;
+}
+.choices {
+	float: left;
+	display: inline;
+	border: 1px solid #e9e9e9;
+	border-right-width: 0;
+	border-radius: 2px;
+	margin-right: 10px;
+}
+.choices li {
+	float: left;
+	display: inline;
+	width: 153px;
+	height: 33px;
+	line-height: 33px;
+	text-indent: 12px;
+	border-right: 1px solid #e9e9e9;
+	position: relative;
+}
+
+.choices input {
+	color: #636363;
+}
+.choices li span {
+	position: absolute;
+	top:14px ;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+	border-color:#c7c7c7 transparent transparent transparent ;
+}
+
+.choices li i {
+	position: absolute;
+	top:-8px;
+	left: -6px;
+	width: 0;
+	height: 0;
+	z-index: 999;
+	border: 6px solid transparent;
+	border-color:#fff transparent transparent transparent ;
+}
+
+.choices>div {
+	float: left;
+	display: inline;
+	width: 235px;
+}
+.inquire input {
+	width: 74px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 2px;
+	background-color: #4582ff;
+	margin-right: 50px;
+	text-align: center;
+	border: none;
+	color: #fbf7ff;
+}
+.choices li ul {
+	display: none;
+	background-color: #fff;
+	border: 1px solid #e9e9e9;
+	position: absolute;
+	top: 33px;
+	left:-1px;
+	z-index: 999;
+}
+.choices li li {
+	border-bottom: 1px solid #e9e9e9;
+	line-height: 30px;
+}
+.selected {
+	width: 83px;
+	height: 83px;
+	border-radius: 50%;
+	background-color: #4582ff;
+	text-align: center;
+	position: fixed;
+	right: 8%;
+	bottom:42px;
+}
+/*.selected i {*/
+	/*width: 42px;*/
+	/*height: 30px;*/
+	/*!*background: url(../img/spirit.png) no-repeat 0 -45px;*!*/
+	/*position: absolute;*/
+	/*top: 16px;*/
+	/*left: 21px;*/
+/*}*/
+
+.selected span {
+	color: #fefdff;
+	position: absolute;
+	top: 33px;
+	left: 16px;
+}
+/*表头部分*/
+.product_detail,
+.product_tbody table {
+	width: 100%;
+	border-collapse:collapse;
+	border-width: 0 0 1px 0;
+	border-color: transparent transparent #e9e9e9 transparent;
+
+}
+.product_detail thead {
+	height: 50px;
+	line-height: 50px;
+	background-color: #eff0f4;
+}
+
+.product_detail th,
+.product_tbody td {
+	border-color: transparent transparent #e9e9e9 transparent;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.product_detail th:nth-of-type(1) {
+	 width: 10%;
+	 text-align: center;
+ }
+
+/*product_tbody 部分*/
+.product_tbody {
+	padding: 0 2em 100px;
+}
+.product_tbody table {
+	width: 100%;
+	border-collapse: collapse;
+	border-width: 0 0  1px;
+	border-bottom-color: #e9e9e9;
+}
+
+.product_tbody td {
+	height:30px;
+	line-height: 20px;
+}
+
+.product_tbody td:nth-of-type(1){
+	width: 8%;
+}
+
+
+.product_tbody  div {
+	width: 7em;
+	margin-left: 1px;
+	line-height: 36px;
+	background-color: #ecf0f1 ;
+	position: relative;
+}
+.product_tbody   div input {
+	padding-left: 36px;
+	color:#7e7f81 ;
+}
+.product_tbody   div span {
+	width: 18px;
+	height: 18px;
+	background: url(../img/spirit.png) no-repeat;
+	position: absolute;
+	left:10px ;
+	top: 9px;
+}
+.product_tbody  .checked {
+	background-color: #3a7af6;
+
+}
+table
+{
+	table-layout:fixed;
+}
+
+.product_tbody  .checked span {
+	top: 12px;
+	background-position: 0 -25px;
+}
+.product_tbody  .checked input {
+	color: #fff;
+}
+/*弹窗部分的CSS*/
+.checked_wrap {
+	width: 600px;
+	max-height: 95%!important;
+	font-size: 13px;
+	color: #656567;
+	overflow-y: scroll;
+	position: fixed;
+	top: 0;
+	right:-20px;
+	background-color: #fff;
+	box-shadow: -2px 2px 5px #CCCCCC;
+	border-radius: 5px;
+	padding-bottom: 50px;
+
+}
+.checked_top {
+	height: 93px;
+	padding-left: 14px;
+	background-color: #579aff;
+}
+.checked_top nav {
+	padding: 9px 42px 0 30px;
+	line-height: 84px;
+	height: 84px;
+	background-color: #f9f9fb;
+}
+.checked_top .close {
+	width: 20px;
+	height: 8px;
+	background-color: #bbb;
+	border-radius: 5px;
+	position: absolute;
+	top: 15px;
+	right: 13px;
+}
+.checked_top h2 {
+	float: left;
+	display: inline;
+	display: inline;
+	color: #30333a;
+	font-size: 20px;
+}
+.checked_top .number{
+	color: #006afc;
+	padding: 0 15px 0 10px;
+}
+.checked_top p {
+	float: right;
+	display: inline;
+	display: inline;
+	position: relative;
+}
+
+.checked_top p:after {
+	content: '';
+	display: inline-block;
+	width: 22px;
+	height: 24px;
+	margin-left: 12px;
+	background: url(../img/spirit.png) no-repeat -24px 0;
+	position: relative;
+	top: 6px;
+}
+.checked_thead {
+	background-color: #f9f9fb;
+	height: 52px;
+	line-height: 52px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.checked_thead li,
+.checked_tbody ul li {
+    display:inline-block;
+    white-space:nowrap;
+    overflow:hidden;
+	float: left;
+	display: inline;
+}
+
+.tiaoma{
+    width:60%;
+}
+
+.checked_thead{
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.checked_thead li:nth-of-type(1){
+	width: 30%;
+	text-indent: 46px;
+}
+
+.checked_thead li:nth-of-type(4),
+.checked_tbody ul li:nth-of-type(4){
+	width: 15%;
+}
+
+.checked_tbody {
+	background-color: #fff;
+	margin-bottom: 50px;
+}
+
+.checked_tbody>li {
+	height: 59px;
+	line-height: 59px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.checked_tbody ul li:nth-of-type(1) {
+	 width: 30%;
+	 text-indent: 18px;
+ }
+
+
+.checked_tbody ul div {
+	width: 180px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.checked_tbody ul div:before {
+	content: '';
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background:url(../img/spirit.png) no-repeat 0 -80px ;
+	margin-right: 12px;
+}
+.otherSelect {
+	padding-left: 170px;
+	/*margin-bottom: 56px;*/
+}
+.otherSelect div {
+	float: left;
+	display: inline;
+	width: 176px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #cacaca;
+	border-radius: 20px;
+	position: relative;
+	margin-left: 40px;
+}
+
+.otherSelect div:nth-of-type(1){
+	border-color: #4582ff;
+	background-color: #4582ff;
+	color: #fff;
+}
+.otherSelect div span,
+.otherSelect div i {
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+	border-top-color:#646464 ;
+	margin-top: -4px;
+	position: absolute;
+	top: 50%;
+	right: 10px;
+}
+.otherSelect div i {
+	border-width: 6px;
+	border-top-color: #fff ;
+	top: -3px;
+	right:-6px ;
+	z-index: 999;
+}

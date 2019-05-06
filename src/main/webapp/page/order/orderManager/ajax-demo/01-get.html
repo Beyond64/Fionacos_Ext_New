@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax 异步的javascript 和 xml</title>
+</head>
+<body>
+    <input type="button" value="异步请求" id="btn">
+
+    <script type="text/javascript">
+
+    var Obtn = document.getElementById("btn");
+    Obtn.onclick = function(){
+        // 实现ajax的异步交互的步骤
+
+        // 1、创建XMLHttpRequest对象
+        var xhr = getXhr();
+        // 2、与服务器端建立连接
+        xhr.open("get","01.php?user=harriet");
+        // 3、客户端向服务器端发送请求 send方法不能省略
+        xhr.send(null);
+        // 4、客户端接受服务器端的响应，监听服务器端的通信状态
+        // readyState属性 得到服务器端当前的通信状态。备选项：0 尚未初始化，1 正在接受，2 接收完成， 3 正在响应， 4 响应完成
+        // status 状态码
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(xhr.status == 200){
+                    var data = xhr.responseText ;
+                    console.log(data);
+                }
+            }
+        }
+
+    }
+
+        function getXhr(){
+            var xhr =null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                // 兼容IE8及之前版本
+                xhr =new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            return xhr;
+        }
+
+    </script>
+</body>
+</html>

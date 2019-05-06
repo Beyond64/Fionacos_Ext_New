@@ -63,7 +63,9 @@ public class SupplierServiceImpl implements SupplierService {
                     arrayList.add(itemVo);
                 }
             }
-            supplierMapper.saveTurnoverHistoey(arrayList,date);
+            if(arrayList != null && arrayList.size() > 0){
+                supplierMapper.saveTurnoverHistoey(arrayList,date);
+            }
             return arrayList;
         }else{
             return historyList;
@@ -72,18 +74,19 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public List<DxCheckVo> getDaiXiaoDuiZhangList(String year, String month, String gysid) {
-        List<DxCheckVo>  list = supplierMapper.findDzdHistoey(gysid,year,month);
-        if(list != null && list.size() > 0){
-            return list;
-        }
+//        注释的为缓存机制
+//        List<DxCheckVo>  list = supplierMapper.findDzdHistoey(gysid,year,month);
+//        if(list != null && list.size() > 0){
+//            return list;
+//        }
         String url = extUrl + "/finance/daiXiaoDuiZhang?year="+year + "&month=" + month + "&gysid=" + gysid;
         String result = HttpClientUtil.doGet(url);
         List<DxCheckVo>  ItemVos = JSONObject.parseArray(result, DxCheckVo.class);//把字符串转换成集合
-        if(ItemVos != null && ItemVos.size() > 0 ){
-            if(ItemVos.get(0).getPosLingShouJia() != null){
-                supplierMapper.saveDzdHistoey(ItemVos,year,month);
-            }
-        }
+//        if(ItemVos != null && ItemVos.size() > 0 ){
+//            if(ItemVos.get(0).getPosLingShouJia() != null){
+//                supplierMapper.saveDzdHistoey(ItemVos,year,month);
+//            }
+//        }
         return ItemVos;
     }
 

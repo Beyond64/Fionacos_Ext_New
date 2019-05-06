@@ -11,11 +11,25 @@
         <result property="sendDate" column="SEND_DATA" javaType="DATE"></result>
     </resultMap>
 
+    <resultMap id="storeInfoMap" type="com.colin.entity.StoreInfoVo">
+        <id property="storeNo" column="STORE_NO" javaType="INTEGER"></id>
+        <result property="storeName" column="STORE_NAME" javaType="STRING"></result>
+        <result property="storeManagerCh" column="STORE_MANAGER_CH" javaType="STRING"></result>
+        <result property="storeManagerEn" column="STORE_MANAGER_EN" javaType="STRING"></result>
+        <result property="storeTel" column="STORE_TEL" javaType="STRING"></result>
+        <result property="storeManagerTel" column="STORE_MANAGER_TEL" javaType="STRING"></result>
+        <result property="storeEmail" column="STORE_EMAIL" javaType="STRING"></result>
+    </resultMap>
+
     <select id="findEmailList" resultMap="emailMap">
         select * from email_tab
         <if test="date != null">
             where
             to_char(SEND_DATA,'YYYY-MM-DD') = #{date}
         </if>
+    </select>
+
+    <select id="findStoreInfo" resultMap="storeInfoMap">
+        select * from store_info_tab where store_no = #{mcu}
     </select>
 </mapper>

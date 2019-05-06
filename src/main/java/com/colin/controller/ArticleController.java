@@ -29,7 +29,7 @@ public class ArticleController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/articleList")
+        @RequestMapping("/articleList")
     @ResponseBody
     public Map<String, Object> findArticleList(Integer page, Integer limit){
         Map<String, Object> map = articleService.findArticleList(page, limit);

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-简单聊天</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <input type="text" id="user" placeholder="用户名">
+    <input type="text" id="chatdata" placeholder="请输入聊天内容">
+    <input type="button" id="btn" value="发送">
+    <div></div>
+
+    <script type="text/javascript">
+         var chatlist = '';
+
+        $('#btn').click(function(){
+            if($('#chatdata').val() == ''){
+                alert('内容不能为空');
+            }else{
+                var chatdata = {"user" : $('#user').val(),"value" : $('#chatdata').val()};
+
+                $.ajax({
+                    url : '05.php',
+                    type : 'post',
+                    data : chatdata,
+                    dataType : "json",
+                    success : function(data,textStatus){
+                        chatlist += "<p>"+data.user+" : "+data.chat+"</p>";
+                        $('div').html($(chatlist));
+                        $('#chatdata').val('');
+                    },
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>

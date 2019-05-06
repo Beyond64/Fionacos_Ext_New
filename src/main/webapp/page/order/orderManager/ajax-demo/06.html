@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-二级联动</title>
+</head>
+<body>
+    <select id="province">
+        <option>请选择</option>
+    </select>
+
+    <select id="city">
+        <option>请选择</option>
+    </select>
+
+    <script type="text/javascript">
+        var Oprovince = document.getElementById('province');
+        var Ocity = document.getElementById('city');
+        var xhr = getXhr();
+
+        window.onload = function(){
+            xhr.open("get","06.php?state=1");
+            xhr.send(null);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4 && xhr.status == 200){
+                    var data = xhr.responseText;
+
+                    var provinces = data.split(' ');
+
+                    for(var i =0;i<provinces.length;i++){
+                        var opts = document.createElement('option');
+                        var txtnode = document.createTextNode(provinces[i]);
+                        opts.appendChild(txtnode);
+                        Oprovince.appendChild(opts);
+                    }
+
+                }
+            }
+        }
+
+        Oprovince.onchange = function(){
+            var options = Ocity.getElementsByTagName('option');
+            for(var j = options.length - 1;j>0;j--){
+                Ocity.removeChild(options[j]);
+            }
+            xhr.open("post","06.php");
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.send('state=2&province='+Oprovince.value);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState==4 && xhr.status == 200){
+                    var data = xhr.responseText;
+
+                    if(data!=''){
+                        cities = data.split(',');
+
+                        for(var i =0;i<cities.length;i++){
+                            var opts = document.createElement('option');
+                            var txtnode = document.createTextNode(cities[i]);
+                            opts.appendChild(txtnode);
+                            Ocity.appendChild(opts);
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+
+        function getXhr(){
+            var xhr = null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            return xhr;
+        }
+    </script>
+</body>
+</html>

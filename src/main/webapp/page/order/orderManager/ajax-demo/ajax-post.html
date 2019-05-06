@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-post</title>
+</head>
+<body>
+    <input type="button" value="ajax-post" id="btn">
+    <script type="text/javascript">
+        var Obtn = document.getElementById("btn");
+        Obtn.onclick = function(){
+            var xhr = getXhr();
+            xhr.open("post","02.php");
+
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+            xhr.send("user=harriet2");
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        var data = xhr.responseText;
+                        console.log(data)
+                    }
+                }
+            }
+        }
+
+        function getXhr(){
+            var xhr = null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                xhr = new activeXObject("Microsoft.XMLHTTP");
+            }
+
+            return xhr;
+        }
+    </script>
+</body>
+</html>

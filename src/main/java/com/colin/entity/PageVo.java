@@ -11,6 +11,7 @@ public class PageVo<T> {
     private Integer limit = 20;
     private Integer starRows;
     private Integer endRows;
+    private Integer code = 0;
     private List<T> data;
 
     public Integer getCount() {
@@ -55,6 +56,14 @@ public class PageVo<T> {
         }else{
             return this.page * this.limit;
         }
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public void setEndRows(Integer endRows) {

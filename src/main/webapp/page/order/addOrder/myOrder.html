@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name='viewport' content="width=device-width,initial-scale=1,user-scalable=no" />
+	<title>自主下单</title>
+	<link href="css/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <script src='scripts/jquery-2.2.1.min.js'></script>
+    <script src="scripts/index.js" type="text/javascript" charset="utf-8"></script>
+    <script src='scripts/template.js'></script>
+    <script src='scripts/myOrder.js'></script>
+</head>
+<body>
+	<div class='main'>
+		<div class="site-nav">
+			<div class="nav">
+
+				<ul class="nav-right">
+					<li class='nav_myTao'>
+						<a href="#" class='nav-myTao'>我的订单</a>
+						<ul class='nav-myTao-nav'>
+							<a href="#">已买到的宝贝</a>
+							<a href="#">我的足迹</a>
+							<a href="#">爱逛街</a>
+							<a href="#">淘宝达人</a>
+							<a href="#">新欢</a>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+    <div class="product">
+        <div>
+            <ul class="choices ClearFix">
+                <li class="choice brand">
+                    <div>
+                        <strong>品牌</strong>
+                        <span><i></i></span>
+                    </div>
+                    <ul>
+                        <li>品牌</li>
+                        <li>奥迪</li>
+                        <li>宝马</li>
+                        <li>奔驰</li>
+                        <li>其他</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="selected">
+            <a href="javascript:;">
+                <span>已选商品</span>
+            </a>
+        </div>
+        <table border="1"  frame="below" class="product_detail">
+            <thead >
+            <tr>
+                <th>选择</th>
+                <th width="100px">供应商码</th>
+                <th width="170px">供应商名称</th>
+                <th width="170px">国际条码</th>
+                <th width="365px">条码描述</th>
+                <th width="70px">代购销</th>
+                <th>数量</th>
+            </tr>
+            </thead>
+        </table>
+
+        <div class="product_tbody">
+            <table border="1"  frame="below" >
+                <!--存放数据的地方，tr是生成的-->
+            </table>
+        </div>
+    </div>
+    <div class="checked_wrap" style="display: none;" id="layer">
+        <div class="checked_top">
+            <nav>
+                <h2>已选择商品<span class="number">0</span>款</h2>
+                <p class="clearAll">一键清除</p>
+            </nav>
+            <div class="close"></div>
+        </div>
+        <ul class="checked_thead">
+            <li>条码</li>
+            <li class="tiaoma">条码描述</li>
+            <li>数量</li>
+        </ul>
+        <ul class="checked_tbody"></ul>
+        <div class="otherSelect ClearFix">
+            <div>立即下单</div>
+        </div>
+    </div>
+
+</body>
+</html>

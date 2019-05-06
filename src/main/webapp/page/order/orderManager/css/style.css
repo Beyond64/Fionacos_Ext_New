@@ -1,0 +1,190 @@
+body {
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e4393c;
+    text-decoration: underline;
+}
+
+.w {
+    margin: 0 auto;
+}
+
+dt {
+    font-weight: bold;
+    display: block;
+    line-height: 28px;
+}
+
+dd {
+    margin-left: 10px;
+    display: block;
+    line-height: 28px;
+}
+
+.selected {
+    color: #e2231a;
+    font-weight: bold;
+}
+
+nav {
+    width: 100%;
+    height: 80px;
+    background-color: #e2231a;
+}
+
+nav a {
+    display: block;
+    float: left;
+}
+
+.logo {
+    width: 300px;
+    height: 80px;
+    margin-left: 10%;
+}
+
+#logo {
+    background-image: url("../img/logo_2017.png");
+    float: left;
+    width: 160px;
+    height: 80px;
+}
+
+#e1 {
+    font-family: "Microsoft YaHei";
+    float: left;
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+#e2 {
+    color: #ffb2b2;
+    float: left;
+    border: 1px solid #ffb2b2;
+    border-radius: 10px;
+    height: 18px;
+    padding: 0 10px;
+    line-height: 18px;
+    margin-top: 2px;
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+#e2:hover {
+    color: #e4393c;
+    background: #ffffff;
+}
+
+.container {
+    background: #f5f5f5;
+    height: 500px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#playlist {
+    float: left;
+}
+
+.content {
+    float: right;
+    width: 90%;
+    padding: 10px;
+}
+
+.content div {
+    background: #ffffff;
+}
+
+.trOrder {
+    background: #f5f5f5;
+}
+
+.trOrder td {
+    padding: 5px;
+}
+
+.trOrder a {
+    color: #005ea7;
+}
+
+.trOrder span:first-child {
+    width: 200px;
+    display: inline-block;
+}
+
+.trProd td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 5px;
+}
+
+.trProd td:first-child {
+    text-align: left;
+}
+
+.imgList a {
+    border: 1px solid #e1e1e1;
+    display: block;
+    float: left;
+    padding: 2px;
+    margin-left: 5px;
+}
+
+.imgList a:hover {
+    border-color: #edd28b;
+}
+
+#orderList {
+    border: 1px solid #ddd;
+    color: #333333;
+    border-collapse: collapse;
+}
+
+#orderList th {
+    background: #e7e7e7;
+    padding: 5px;
+    font-weight: normal;
+}
+
+#recordContent {
+    display: none;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#lotteryContent {
+    display: none;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#btnLottery {
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+    height: 40px;
+}
+
+canvas {
+    border: 1px solid #dddddd;
+}
+
+footer {
+    background: #ffffff;
+    width: 15%;
+    margin: 0 auto;
+}

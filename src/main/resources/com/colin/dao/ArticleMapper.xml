@@ -27,7 +27,7 @@
     </select>
 
     <select id="FindArticleNameList" resultMap="ArticleMap">
-        SELECT ARTICLE_ID,ARTICLE_NAME,ARTICLE_TIME  FROM SYSTEM.ARTICLE_TAB where DELETE_STATUS != 1 and IS_HIDE != 1
+        SELECT ARTICLE_ID,ARTICLE_NAME,ARTICLE_TIME  FROM SYSTEM.ARTICLE_TAB where DELETE_STATUS != 1 and IS_HIDE != 1 order by ARTICLE_TIME desc
     </select>
 
     <select id="FindArticleById" resultMap="ArticleMap">

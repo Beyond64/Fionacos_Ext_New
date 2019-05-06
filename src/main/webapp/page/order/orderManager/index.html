@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京东</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/orderList.js"></script>
+    <script type="text/javascript" src="js/recordPaint.js"></script>
+    <script type="text/javascript" src="js/runLottery.js"></script>
+</head>
+<script type="text/javascript">
+    $(function () {
+        $("#orderLink").click(function () {
+            $(this).addClass("selected");
+            $("#recordLink").removeClass("selected");
+            $("#lotteryLink").removeClass("selected");
+
+            $("#orderContent").show();
+            $("#recordContent").hide();
+            $("#lotteryContent").hide();
+        });
+
+        $("#recordLink").click(function () {
+            $(this).addClass("selected");
+            $("#orderLink").removeClass("selected");
+            $("#lotteryLink").removeClass("selected");
+
+            $("#orderContent").hide();
+            $("#recordContent").show();
+            $("#lotteryContent").hide();
+        });
+
+        $("#lotteryLink").click(function () {
+            $(this).addClass("selected");
+            $("#orderLink").removeClass("selected");
+            $("#recordLink").removeClass("selected");
+
+            $("#orderContent").hide();
+            $("#recordContent").hide();
+            $("#lotteryContent").show();
+        });
+
+        $.get("server.php",function (data) {
+            initOrderList($("#orderList"),data);
+        },"json");
+
+        var datas = [1200,2000,3000,500,200,800,1800,2200,2600,1000,600,300];
+        recordPaint($("#recordCvs")[0],datas);
+
+//        var lottery =new runLottery($("#lotteryCvs")[0]);
+//        $("#btnLottery").click(function () {
+//            lottery.start();
+//        });
+
+        var start = runLottery($("#lotteryCvs")[0]);
+        $("#btnLottery").click(function () {
+            start();
+        });
+
+    });
+</script>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="#" id="logo"></a>
+            <a href="#" id="e1">我的京东</a>
+            <a href="#" id="e2">返回京东首页</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="w">
+
+            <dl id="playlist">
+                <dt>我的京东</dt>
+                <dd><a href="#" id="orderLink" class="selected">我的订单</a></dd>
+                <dd><a href="#" id="recordLink" >消费记录</a></dd>
+                <dd><a href="#" id="lotteryLink" >幸运抽奖</a></dd>
+            </dl>
+
+            <div class="content">
+                <div id="orderContent">
+                    <table id="orderList" width="100%">
+                        <tr>
+                            <th width="50%">订单信息</th>
+                            <th width="10%">收货人</th>
+                            <th width="10%">订单金额</th>
+                            <th width="10%">
+                                <select id="orderTime">
+                                    <option value="1">最近三个月</option>
+                                    <option value="2">今年内</option>
+                                    <option value="3">2017年</option>
+                                </select>
+                            </th>
+                            <th width="10%">
+                                <select id="orderStatus">
+                                    <option value="1">全部状态</option>
+                                    <option value="2">未完成</option>
+                                    <option value="3">已完成</option>
+                                </select>
+                            </th>
+                            <th width="10%">操作</th>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div id="recordContent">
+                    <canvas id="recordCvs" width="600" height="400">
+                        您的浏览器不支持canvas
+                    </canvas>
+                </div>
+
+                <div id="lotteryContent">
+                    <canvas id="lotteryCvs" width="500" height="500"></canvas>
+                    <button id="btnLottery">开始抽奖</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        网络文化经营许可证 京东JD.com<br>
+        版权所有归京东旗下网站：English
+    </footer>
+</body>
+</html>

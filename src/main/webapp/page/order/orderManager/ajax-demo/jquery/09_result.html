@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09_result</title>
+</head>
+<body>
+    <h1>welcome, <span id="user"></span></h1>
+
+    <script type="text/javascript">
+        var Ouser = document.getElementById('user');
+
+        window.onload = function(){
+            var cookies = document.cookie;
+            var arr = cookies.split('; ');
+            var value;
+
+            for(var i=0;i<arr.length;i++){
+                var arr1 = arr[i].split('=');
+                if(arr1[0]=='user'){
+                    value = arr1[1];
+                    break;
+                }
+            }
+
+            Ouser.innerHTML = value;
+
+            console.log(value);
+        }
+    </script>
+</body>
+</html>

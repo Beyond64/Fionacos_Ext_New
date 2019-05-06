@@ -60,7 +60,7 @@ public class DateUtils {
                 break;
             case 3:
                 map.put("start",getFisrtDayOfMonth(year,7));
-                map.put("end",getFisrtDayOfMonth(year,9));
+                map.put("end",getLastDayOfMonth(year,9));
                 break;
             case 4:
                 map.put("start",getFisrtDayOfMonth(year,10));

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getJSON</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <input type="button" id="btn" value="getJSON跨域请求">
+    <script type="text/javascript"> //script标签的开放策略
+        $('#btn').click(function(){
+            $.getJSON("08.php?callback=?",function(data){
+                console.log(data);
+            });
+        });
+    </script>
+</body>
+</html>

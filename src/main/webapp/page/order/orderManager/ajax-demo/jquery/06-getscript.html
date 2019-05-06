@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-getscript</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <input type="button" id="btn" value="读取">
+    <div id="comments"></div>
+
+    <script type="text/javascript">
+        $('#btn').click(function(){
+            $.getScript("06.php",function(data){
+                console.log(data);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-form</title>
+    <script type="text/javascript" src="jquery.js"></script>
+</head>
+<body>
+    <form onsubmit="return formsubmit();" id="myform" name="myform" action="07.php" method="post">
+        用户名：<input type="text" id="username" name="username" placeholder="username"><br>
+        密码：<input type="text" id="password" name="password" placeholder="password"><br>
+        <input type="button" id="btn" value="login">
+    </form>
+
+    <script type="text/javascript">
+        function formsubmit(){
+            return false;
+        }
+
+        $('#btn').click(function(){
+            // var user = {
+            //     "username" : $('#username').val(),
+            //     "password" : $('#password').val()
+            // };
+
+            //表单序列化，构建{key:value}格式. key是使用表单元素name属性
+            var user = $('#myform').serialize();
+
+            $.post($('#myform').attr('action'),user,function(data){
+                console.log(data);
+            });
+        });
+    </script>
+</body>
+</html>

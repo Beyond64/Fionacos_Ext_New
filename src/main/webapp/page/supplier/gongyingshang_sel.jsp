@@ -23,6 +23,7 @@
 	String brand=request.getParameter("brand");//new String(request.getParameter("brand").getBytes("ISO-8859-1"),"UTF-8" );
 	String imdsc1=request.getParameter("imdsc1");//new String(request.getParameter("imdsc1").getBytes("ISO-8859-1"),"UTF-8" );
 	String statu=request.getParameter("statu");//new String(request.getParameter("statu").getBytes("ISO-8859-1"),"UTF-8" );
+	String limcu=request.getParameter("limcu");//new String(request.getParameter("limcu").getBytes("ISO-8859-1"),"UTF-8" );
 
 	Calendar   cal   =   Calendar.getInstance();
 	cal.add(Calendar.DATE,   -30);
@@ -56,6 +57,7 @@
 	-->
 	<script src='${pageContext.request.contextPath}/js/jquery-2.1.1.min.js'></script>
 	<script language="javascript" type="text/javascript" src="<%=basePath%>riliJs/WdatePicker.js"></script>
+	<script language="javascript" type="text/javascript" src="<%=basePath%>js/jquery.fileDownload.js"></script>
 	<style type="text/css">
 		body{
 			background: white;
@@ -118,6 +120,7 @@
         mcdc = $("#mcdc").val();
         brand = $("#brand").val();
         imdsc1 = $("#imdsc1").val();
+        limcu = $("#limcu").val();
 
         // area=encodeURI(area);
         // area=encodeURI(area);
@@ -126,7 +129,7 @@
             showconfirm("请选择日期!","","");
             return;
         }
-        window.location.href="page/supplier/gongyingshang_sel.jsp?datestart="+datestart+"&datestop="+datestop+"&area="+area+"&mcdc="+mcdc+"&brand="+brand+"&imdsc1="+imdsc1+"&statu=2";
+        window.location.href="page/supplier/gongyingshang_sel.jsp?datestart="+datestart+"&datestop="+datestop+"&area="+area+"&mcdc="+mcdc+"&limcu="+limcu+"&brand="+brand+"&imdsc1="+imdsc1+"&statu=2";
         index = layer.msg('加载中，请稍候',{icon: 16,time:false,shade:0.8});
     }
 
@@ -142,6 +145,7 @@
         mcdc = $("#mcdc").val();
         brand = $("#brand").val();
         imdsc1 = $("#imdsc1").val();
+        limcu = $("#limcu").val();
 
         if(datestart==""||datestop==""){
             showconfirm("请选择日期!","","");
@@ -160,8 +164,11 @@
         imdsc1=encodeURI(imdsc1);
         imdsc1=encodeURI(imdsc1);
 
+        limcu=encodeURI(limcu);
+        limcu=encodeURI(limcu);
+
         var url="<%=basePath%>export/exportGongYingShangSel?datestart="+datestart+"&datestop="+datestop
-            +"&gongyingshang="+un+"&area="+area+"&mcdc="+mcdc+"&brand="+brand+"&imdsc1="+imdsc1;
+            +"&gongyingshang="+un+"&area="+area+"&mcdc="+mcdc+"&limcu="+limcu+"&brand="+brand+"&imdsc1="+imdsc1;
         loadDown(url);
         // var link= $('<a href="'+url+'" download="'+ datestart +'至'+datestop +'区域销售/库存报表.xls'+'"></a>');
         // link.get(0).click();
@@ -169,31 +176,18 @@
     }
 
     //文件下载
-    function loadDown(url) {
-        index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
-        var downloadToken = +new Date();
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);    // 也可以使用POST方式，根据接口
-        xhr.responseType = "blob";
-        xhr.onload = function () {
-            if (this.status === 200) {
-                var blob = this.response;
-                var reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onload = function (e) {
-                    layer.close(index);
-                    var headerName = xhr.getResponseHeader("Content-disposition");
-                    var fileName = decodeURIComponent(headerName).substring(20);
-                    var a = document.createElement('a');
-                    a.download = fileName;
-                    a.href = e.target.result;
-                    $("body").append(a);    // 修复firefox中无法触发click
-                    a.click();
-                    $(a).remove();
-                }
+    function loadDown(url){
+        $.fileDownload(url,{
+            prepareCallback:function(url){
+                index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
+            },
+            successCallback: function(url){
+                layer.close(index);
+            },
+            failCallback: function (html, url) {
+                layer.close(index);
             }
-        };
-        xhr.send()
+        });
     }
 
     //判断页面是否加载完成
@@ -221,6 +215,7 @@
 		~<input type="text" id="datestop" placeholder="结束日期" class=Wdate   onClick=WdatePicker() value="<%=datestop %>">
 		<input type="text" id="area" placeholder="区域"  value="<%=area %>">
 		<input type="text" id="mcdc" placeholder="门店" value="<%=mcdc %>">
+		<input type="text" id="limcu" placeholder="门店编号" value="<%=limcu %>">
 		<input type="text" id="brand" placeholder="品牌" value="<%=brand %>">
 		<input type="text" id="imdsc1" placeholder="商品说明" value="<%=imdsc1 %>">
 		<button onclick="showsel()">查询</button>
@@ -237,10 +232,11 @@
 				mcdc =URLEncoder.encode(mcdc,"utf-8");
 				brand =URLEncoder.encode(brand,"utf-8");
 				imdsc1 =URLEncoder.encode(imdsc1,"utf-8");
+				limcu =URLEncoder.encode(limcu,"utf-8");
 				//183.11.241.154:8081	192.168.15.252:818
 				String url = "http://183.11.241.154:8081/Ext_interface/ext/gongyingshang/getext_json_sel.jsp?datestart="+
 						datestart.trim()+"&datestop="+datestop.trim()+"&gongyingshang="+
-						un+"&area="+area+"&mcdc="+mcdc+"&brand="+brand+"&imdsc1="+imdsc1;
+						un+"&area="+area+"&mcdc="+mcdc+"&limcu="+limcu+"&brand="+brand+"&imdsc1="+imdsc1;
 				System.out.println(url+">>>");
 				String json = pjp.loadJSON(url);
 				List<Params> list=JSON.parseArray(json,Params.class);
@@ -251,7 +247,7 @@
 				int countst =0;
 				tablestr ="<table>"+
 						"<tr>"+
-						"<td style='display: none'>门店/仓库编码</td>"+
+						"<td>门店/仓库编码</td>"+
 						"<td>门店/仓库</td>"+
 						"<td>供应商编码</td>"+
 						"<td>供应商名称</td>"+
@@ -268,7 +264,7 @@
 				//System.out.println(list.size()+">>>");
 				for (Params params : list) {
 					tablestr+="<tr>";
-					tablestr+="<td style='display: none'>"+params.getParam1()+"</td>";
+					tablestr+="<td>"+params.getParam1()+"</td>";
 					tablestr+="<td>"+params.getParam2()+"</td>";
 					tablestr+="<td>"+params.getParam3()+"</td>";
 					tablestr+="<td>"+params.getParam4()+"</td>";

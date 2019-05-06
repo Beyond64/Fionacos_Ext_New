@@ -69,6 +69,12 @@
 					"spread": false
 				},
 				{
+					"title": "购销月结对账单",
+					"icon": "&#xe649;",
+					"href": "page/supplier/shoopmouthjore.jsp",
+					"spread": false
+				},
+				{
 					"title": "供应链服务费",
 					"icon": "&#xe649;",
 					"href": "page/supplier/gongyingshang_ServiceList.jsp",

@@ -39,4 +39,8 @@ public interface UserService {
     List<User> findCompanyEmail();
 
     void addEmailHistory(String username, String userEmail, String html);
+
+    List<String> findStroreName();
+
+    void updateGpsByName(String store, String longitude, String latitude);
 }

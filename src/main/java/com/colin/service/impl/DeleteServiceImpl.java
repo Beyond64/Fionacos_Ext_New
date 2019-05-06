@@ -1,6 +1,7 @@
 package com.colin.service.impl;
 
 import com.colin.dao.DeleteMapper;
+import com.colin.entity.TokenVo;
 import com.colin.service.DeleteService;
 import com.colin.tool.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DeleteServiceImpl implements DeleteService {
@@ -24,5 +26,10 @@ public class DeleteServiceImpl implements DeleteService {
         Date date = new Date();
         String beforeFiveDay = sdf.format(DateUtils.getDayBefore(date,-5));
         deleteMapper.deleteTurnoverHistoey(beforeFiveDay);
+    }
+
+    @Override
+    public List<TokenVo> findToken() {
+        return deleteMapper.findToken();
     }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-xml</title>
+</head>
+<body>
+    <input type="button" id="btn" value="ajax">
+
+    <script type="text/javascript">
+        var Obtn = document.getElementById("btn");
+        Obtn.onclick = function(){
+            var xhr = getXhr();
+
+            xhr.open("post","09.php");
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+            var user = '<user><name>harriet</name><pwd>ljh</pwd></user>';
+            xhr.send("user="+user);
+
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var xmlDOC = xhr.responseXML;
+
+                    var txt = xmlDOC.getElementsByTagName('name')[0].textContent;
+                    // .childNodes[0].nodeValue;
+                    console.log(txt);
+                }
+            }
+        }
+
+
+        function getXhr(){
+            var xhr = null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xhr;
+        }
+    </script>
+</body>
+</html>

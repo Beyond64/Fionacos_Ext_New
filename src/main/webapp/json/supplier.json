@@ -21,13 +21,13 @@
 				{
 					"title": "区域销售/库存",
 					"icon": "&#xe649;",
-					"href": "page/supplier/gongyingshang_sel.jsp?datestart=&datestop=&area=&mcdc=&brand=&imdsc1=&statu=1",
+					"href": "page/supplier/gongyingshang_sel.jsp?datestart=&datestop=&area=&limcu=&mcdc=&limcu=&brand=&imdsc1=&statu=1",
 					"spread": false
 				},
 				{
 					"title": "区域销售/库存(含在途库存)",
 					"icon": "&#xe649;",
-					"href": "page/supplier/gongyingshang_sel_z.jsp?datestart=&datestop=&area=&mcdc=&brand=&imdsc1=&statu=1",
+					"href": "page/supplier/gongyingshang_sel_z.jsp?datestart=&datestop=&area=&limcu=&mcdc=&brand=&imdsc1=&statu=1",
 					"spread": false
 				},
 				{
@@ -40,6 +40,26 @@
 					"title": "品牌销售/库存(含在途库存)",
 					"icon": "&#xe649;",
 					"href": "page/supplier/gongyingshang_sel_brand_z.jsp?datestart=&datestop=&brand=&imdsc1=&statu=1",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "自助下单",
+			"icon": "&#xe649;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "自助下单",
+					"icon": "icon-text",
+					"href": "page/supplier/orderManager.jsp",
+					"spread": false
+				},
+				{
+					"title": "订单管理",
+					"icon": "icon-text",
+					"href": "page/supplier/jdeOrderManager.jsp",
 					"spread": false
 				}
 			]
@@ -66,6 +86,12 @@
 					"title": "代销损耗明细",
 					"icon": "&#xe649;",
 					"href": "page/supplier/gongyingshang_DxSunHao.jsp",
+					"spread": false
+				},
+				{
+					"title": "购销月结对账单",
+					"icon": "&#xe649;",
+					"href": "page/supplier/shoopmouthjore.jsp",
 					"spread": false
 				},
 				{

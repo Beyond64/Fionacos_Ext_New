@@ -45,24 +45,6 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
     //查询按钮
     $(".findOnTime").click(function(){
         index = layer.msg('文件导出中，请稍候',{icon: 16,time:false,shade:0.8});
-        if (Mydate >= getNowFormatDate()){
-            layer.close(index);
-            layer.open({
-                type: 1,
-                title: "温馨提示",
-                area: '300px',
-                shade: 0.8,
-                id: 'LAY_layuipro',
-                btn: ['确定'],
-                moveType: 1,
-                content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p class="layui-red">您选择的日期数据还未生成,请重选日期查询</p> </div>',
-                success: function(layero){
-                    var btn = layero.find('.layui-layer-btn');
-                    btn.css('text-align', 'center');
-                }
-            });
-        }else{
-
             //执行重载
             $.ajax({
                 type: "POST",
@@ -117,7 +99,6 @@ layui.use(['form','layer','upload','laydate','table','laytpl'],function(){
                     layer.close(index);
                 }
             });
-        }
     });
 
     $("#downloadMuBan").click(function(){

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-readyState</title>
+</head>
+<body>
+    <input type="button" value="readystate" id="btn" >
+
+    <script type="text/javascript">
+        var Obtn = document.getElementById("btn");
+
+        Obtn.onclick = function(){
+            // 1、创建XMLHttpRequest对象
+            var xhr = getXhr();
+            // 2、注册监听
+            xhr.onreadyStatechange = function(){
+                alert(xhr.readyState);
+            }
+            // 3、建立连接
+            xhr.open("get","04.php");
+
+            // 4、发送请求
+
+            // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.send(null);
+
+        }
+
+        function getXhr(){
+            var xhr = null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            return xhr;
+        }
+    </script>
+</body>
+</html>

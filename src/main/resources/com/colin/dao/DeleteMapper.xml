@@ -7,4 +7,8 @@
     <delete id="deleteTurnoverHistoey">
         delete from TURNOVER_HISTOEY_TAB where create_date  &lt;= #{beforeFiveDay}
     </delete>
+
+    <select id="findToken" resultType="com.colin.entity.TokenVo">
+        select * from TOKEN_TAB
+    </select>
 </mapper>

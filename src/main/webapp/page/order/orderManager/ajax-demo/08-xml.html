@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xml案例</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        /*已经过时
+        function parseXML(xml){
+            var xmlDOC = null;
+
+            try{
+                xmlDOC = new ActiveXObject("Microsoft.XMLDOM");
+            }catch(e){
+                try{
+                    xmlDOC = new document.implementation.createDocument("","",null);
+                }catch(e){
+                    alert(e.message);
+                    return;
+                }
+            }
+
+            xmlDOC.async = false;
+            // load方法 -- 返回解析后的DOM对象
+            return xmlDOC.load(xml);
+        }
+
+        var xmlDOC = parseXML("xmlTest.xml");
+        console.log(xmlDOC);*/
+
+
+        // 浏览器不允许读取外部的XML文件
+        // function parseXML(xmlFile){
+        //     var xmlDOC = null;
+
+        //     if(window.DOMParser){
+                // var parser = new DOMParser();
+        //         xmlDOC = parser.parseFromString(xmlFile,"application/xml");
+        //     }else{
+        //         var xmlDOC = new ActiveXObject("Microsoft.XMLDOM");
+        //         xmlDOC.async = false;
+        //         xmlDOC.loadXML(xmlFile);
+        //     }
+
+        //     return xmlDOC;
+        // }
+
+        // var xmlDOC = parseXML('<user city="ljh"><name>harriet</name></user>');
+
+        // var userEle = xmlDOC.getElementsByTagName("user")[0];
+        // var nameEle = userEle.getElementsByTagName("name")[0];
+        // var nameText = nameEle.childNodes[0].nodeValue;
+        // console.log(userEle.getAttribute("city"));
+
+
+
+        // 创建XML解析器，解析XML得到的DOM对象
+        function parseXML(xml){
+            var xmlDOC = null;
+
+            if(window.DOMParser){
+                var parser = new DOMParser();
+                xmlDOC = parser.parseFromString(xml,"application/xml");
+            }else{
+                xmlDOC = new ActiveXObject("Microsoft.XMLDOM");
+                xmlDOC.async = false;
+                xmlDOC.loadXML(xml);
+            }
+            return xmlDOC;
+        }
+
+
+        var xmlDOC = parseXML('<user number="01"><name>ljh</name><age>20</age><addr name="guangzhou" /><addr name="love" /></user>');
+
+        var userEle = xmlDOC.getElementsByTagName("user")[0];
+        var num = userEle.getAttribute("number");
+
+        var addrEle = userEle.getElementsByTagName("addr");
+        var cities = [];
+        for(var i=0;i<addrEle.length;i++){
+            var cities = addrEle[i].getAttribute("name");
+            console.log(cities);
+        }
+    </script>
+</body>
+</html>

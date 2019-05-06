@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax-案例</title>
+</head>
+<body>
+    <select id="province">
+        <option>请选择</option>
+        <option>山东省</option>
+        <option>广东省</option>
+        <option>辽宁省</option>
+        <option>吉林省</option>
+    </select>
+    <select id="city">
+        <option>请选择</option>
+    </select>
+
+    <script type="text/javascript">
+
+        var Oprovince = document.getElementById("province");
+        var Ocity = document.getElementById('city');
+
+        Oprovince.onchange = function(){
+            opt = Ocity.getElementsByTagName('option');
+
+            for(var j=opt.length-1;j>0;j--){
+                Ocity.removeChild(opt[j]);
+            }
+
+            if(Oprovince.value != "请选择"){
+                var xhr = getXhr();
+
+                xhr.open("post","05.php");
+
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+                xhr.send("province="+Oprovince.value);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        var data = xhr.responseText;
+
+                        // if(data != ""){
+                            var cities = data.split(',');
+
+                            for(var i=0; i<cities.length;i++){
+                                var opts = document.createElement('option');
+                                var citynode = document.createTextNode(cities[i]);
+
+                                opts.appendChild(citynode);
+                                Ocity.appendChild(opts);
+                            }
+                        // }
+                    }
+                }
+            }
+
+        }
+
+
+        function getXhr(){
+            var xhr = null;
+
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else{
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            return xhr;
+        }
+
+
+
+        // var Oprovince = document.getElementById("province");
+        // var city =document.getElementById("city");
+        // Oprovince.onchange = function(){
+        //     var opts =city.getElementsByTagName("option");
+        //     for(var j=opts.length-1; j>0 ;j--){
+        //         city.removeChild(opts[j]);
+        //     }
+
+
+        //     var provincename = Oprovince.value;
+        //     var cities = [];
+        //     switch(provincename){
+        //         case "山东省" :
+        //             cities = ["1","2","3"];
+        //             break;
+        //         case "辽宁省" :
+        //             cities = ["4","5","6"];
+        //             break;
+        //         case "吉林省" :
+        //             cities = ["7","8","9"];
+        //             break;
+        //         case "广东省" :
+        //             cities = ["0","0","8"];
+        //             break;
+        //     }
+
+        //     for(var i=0;i<cities.length;i++){
+        //         var option = document.createElement("option");
+        //         var textnode = document.createTextNode(cities[i]);
+        //         option.appendChild(textnode);
+
+        //         city.appendChild(option);
+        //     }
+        // }
+    </script>
+</body>
+</html>
